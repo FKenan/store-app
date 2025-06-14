@@ -1,4 +1,4 @@
-import MainLayot from "./layouts/MainLayot";
+import MainLayout from "./layouts/Main";
 import ProductsPage from "./pages/Products";
 import CartPage from "./pages/Cart";
 import LoginPage from "./pages/Login";
@@ -10,7 +10,7 @@ import ProductDetailsPage from "./pages/ProductDetails";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayot />,
+    element: <MainLayout />,
     children: [
       { index: true, element: <HomePage /> },
       { path: "home", element: <HomePage /> },
