@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import ProductList from "../components/ProductList";
+import Loading from "../components/Loading";
 
 export default function ProductsPage() {
   const [loadedProducts, setLoadedProducts] = useState([]);
-  const [Loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -20,8 +21,8 @@ export default function ProductsPage() {
     fetchProducts();
   }, []);
 
-  if (Loading) {
-    return <h1>Loading...</h1>;
+  if (loading) {
+    return <Loading />;
   }
 
   return <ProductList products={loadedProducts} />;
