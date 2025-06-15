@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/material";
-import requests from "../api/apiClient";
+import requests from "../../api/apiClient";
 
 export default function ErrorPage() {
   return (
