@@ -27,5 +27,7 @@ export default function ProductDetailsPage() {
     return <Loading />;
   }
 
+  if (!product) return <h1>Ürün bulunamadı.</h1>;
+
   return <ProductItem product={product} />;
 }
