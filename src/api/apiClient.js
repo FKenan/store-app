@@ -76,9 +76,18 @@ const errors = {
     methods.get("errors/server-error").catch((error) => console.log(error)),
 };
 
+const cart = {
+  get: () => methods.get("cart"),
+  addItem: (productId, quantity = 1) =>
+    methods.post(`carts?productId=${productId}&quantity=${quantity}`, {}),
+  deleteItem: (productId, quantity = 1) =>
+    methods.delete(`carts?productId=${productId}&quantity=${quantity}`),
+};
+
 const requests = {
   products,
   errors,
+  cart,
 };
 
 export default requests;
