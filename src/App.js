@@ -50,6 +50,7 @@ function App() {
       .then((cart) => console.log(cart))
       .catch((error) => console.log(error));
   }, []);
+
   return <RouterProvider router={router} />;
 }
 

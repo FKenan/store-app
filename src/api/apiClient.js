@@ -77,7 +77,7 @@ const errors = {
 };
 
 const cart = {
-  get: () => methods.get("cart"),
+  get: () => methods.get("carts"),
   addItem: (productId, quantity = 1) =>
     methods.post(`carts?productId=${productId}&quantity=${quantity}`, {}),
   deleteItem: (productId, quantity = 1) =>

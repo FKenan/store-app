@@ -18,13 +18,14 @@ import requests from "../api/apiClient";
 
 export default function ProductCard({ product }) {
   const [loading, setLoading] = useState(false);
+
   function handleAddItem(productId) {
     setLoading(true);
     requests.cart
       .addItem(productId)
-      .then()
+      .then((cart) => console.log(cart))
       .catch((error) => console.log(error))
-      .finally(setLoading(false));
+      .finally(() => setLoading(false));
   }
 
   return (
