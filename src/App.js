@@ -1,10 +1,10 @@
+import { createBrowserRouter, RouterProvider } from "react-router";
 import MainLayout from "./layouts/Main";
+import HomePage from "./pages/Home";
 import ProductsPage from "./pages/Products";
 import CartPage from "./pages/Cart";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
-import { createBrowserRouter, RouterProvider } from "react-router";
-import HomePage from "./pages/Home";
 import ProductDetailsPage from "./pages/ProductDetails";
 import ErrorPage from "./pages/errors/Error";
 import ServerErrorPage from "./pages/errors/ServerError";
@@ -27,7 +27,6 @@ export const router = createBrowserRouter([
           { path: ":id", element: <ProductDetailsPage /> },
         ],
       },
-
       { path: "cart", element: <CartPage /> },
       { path: "login", element: <LoginPage /> },
       { path: "register", element: <RegisterPage /> },
@@ -35,7 +34,7 @@ export const router = createBrowserRouter([
         path: "errors",
         children: [
           { index: true, element: <ErrorPage /> },
-          { path: "server-errors", element: <ServerErrorPage /> },
+          { path: "server-error", element: <ServerErrorPage /> },
           { path: "not-found", element: <NotFoundPage /> },
         ],
       },

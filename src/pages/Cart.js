@@ -1,7 +1,7 @@
-import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Button,
   CircularProgress,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -11,14 +11,14 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { currencyTry } from "../utils/formats";
+import { currenyTRY } from "../utils/formats";
+import { Delete } from "@mui/icons-material";
 import { useCartContext } from "../context/CartContext";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useState } from "react";
 import requests from "../api/apiClient";
 
-//  colSpan={5} => 5 sütün kapsar. yani 5 sütünü birleştirme işlemi yapar.
 export default function CartPage() {
   const { cart, setCart } = useCartContext();
   const [status, setStatus] = useState({ loading: false, id: "" });
@@ -27,30 +27,29 @@ export default function CartPage() {
     (toplam, item) => toplam + item.product.price * item.product.quantity,
     0
   );
+
   const tax = subTotal * 0.2;
   const total = subTotal + tax;
 
-  if (!cart || cart.cartItems.length === 0) {
-    return <Typography component="h4">Sepetinizde ürün yok.</Typography>;
-  }
+  if (!cart || cart.cartItems.length === 0)
+    return <Typography component="h4">Sepetinizde ürün yok</Typography>;
 
   function handleAddItem(productId, id) {
     setStatus({ loading: true, id: id });
-
     requests.cart
       .addItem(productId)
-      .then((cart) => setCart)
+      .then((cart) => setCart(cart))
       .catch((error) => console.log(error))
-      .finally(() => setStatus({ loading: false, id: productId }));
+      .finally(() => setStatus({ loading: false, id: "" }));
   }
 
   function handleRemoveItem(productId, id, quantity = 1) {
     setStatus({ loading: true, id: id });
     requests.cart
       .deleteItem(productId, quantity)
-      .then((cart) => setCart)
+      .then((cart) => setCart(cart))
       .catch((error) => console.log(error))
-      .finally(() => setStatus({ loading: false, id: productId }));
+      .finally(() => setStatus({ loading: false, id: "" }));
   }
 
   return (
@@ -76,7 +75,7 @@ export default function CartPage() {
                 />
               </TableCell>
               <TableCell>{item.product.title}</TableCell>
-              <TableCell>{currencyTry.format(item.product.price)}</TableCell>
+              <TableCell>{currenyTRY.format(item.product.price)}</TableCell>
               <TableCell>
                 <Button
                   onClick={() =>
@@ -93,11 +92,12 @@ export default function CartPage() {
                     <AddCircleOutlineIcon />
                   )}
                 </Button>
+
                 {item.product.quantity}
                 <Button
                   onClick={() =>
                     handleRemoveItem(
-                      item.product.id,
+                      item.product.productId,
                       "remove" + item.product.productId
                     )
                   }
@@ -111,7 +111,7 @@ export default function CartPage() {
                 </Button>
               </TableCell>
               <TableCell>
-                {currencyTry.format(item.product.price * item.product.quantity)}
+                {currenyTRY.format(item.product.price * item.product.quantity)}
               </TableCell>
               <TableCell>
                 <Button
@@ -128,7 +128,7 @@ export default function CartPage() {
                   status.id === "remove_all" + item.product.productId ? (
                     <CircularProgress size="20px" />
                   ) : (
-                    <DeleteIcon />
+                    <Delete />
                   )}
                 </Button>
               </TableCell>
@@ -139,7 +139,7 @@ export default function CartPage() {
               Ara Toplam
             </TableCell>
             <TableCell align="right" colSpan={5}>
-              {currencyTry.format(subTotal)}
+              {currenyTRY.format(subTotal)}
             </TableCell>
           </TableRow>
           <TableRow>
@@ -147,7 +147,7 @@ export default function CartPage() {
               Vergi
             </TableCell>
             <TableCell align="right" colSpan={5}>
-              {currencyTry.format(tax)}
+              {currenyTRY.format(tax)}
             </TableCell>
           </TableRow>
           <TableRow>
@@ -155,7 +155,7 @@ export default function CartPage() {
               Toplam
             </TableCell>
             <TableCell align="right" colSpan={5}>
-              {currencyTry.format(total)}
+              {currenyTRY.format(total)}
             </TableCell>
           </TableRow>
         </TableBody>

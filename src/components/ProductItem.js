@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import { currencyTry } from "../utils/formats";
 import ReportIcon from "@mui/icons-material/Report";
-
 export default function ProductItem({
   product,
   handleAddItem,
@@ -17,23 +16,24 @@ export default function ProductItem({
 }) {
   return (
     <Grid container spacing={2}>
-      <Grid size={{ sm: 6, md: 5, lg: 4, xs: 12 }}>
-        <Paper>
+      <Grid size={{ lg: 4, md: 5, sm: 6, xs: 12 }}>
+        <Paper variant="outlined" sx={{ p: 3 }}>
           <img
             src={`http://localhost:5000/images/${product.image}`}
             style={{ width: "100%" }}
           />
         </Paper>
       </Grid>
-      <Grid size={{ sm: 6, md: 7, lg: 8, xs: 12 }}>
+      <Grid size={{ lg: 8, md: 7, sm: 6, xs: 12 }}>
         <Paper variant="outlined" sx={{ p: 3 }}>
-          <Typography variant="h1" component="h4" color="secondary.dark">
+          <Typography component="h1" variant="h4" color="secondary.dark">
             {product.title}
           </Typography>
           <Typography variant="body1">{product.description}</Typography>
           <Typography variant="h5" color="secondary" sx={{ mt: 3 }}>
             {currencyTry.format(product.price)}
           </Typography>
+
           <Stack
             direction="row"
             display="flex"
@@ -48,15 +48,17 @@ export default function ProductItem({
             >
               Sepete Ekle
             </Button>
+
             {cartItem?.product.quantity > 0 && (
               <Typography
                 variant="body2"
                 sx={{ display: "flex", alignItems: "center" }}
               >
                 <ReportIcon color="secondary" /> Sepetinizde{" "}
-                {cartItem.product.quantity} adet ekli
+                {cartItem.product.quantity} adet eklendi.
               </Typography>
             )}
+
             {isAdding && <CircularProgress size="20px" />}
           </Stack>
         </Paper>

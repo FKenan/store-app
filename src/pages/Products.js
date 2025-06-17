@@ -13,17 +13,16 @@ export default function ProductsPage() {
         const data = await requests.products.list(); //Axios ile oluşturduğumuz apiClient ile veri çekme
         setLoadedProducts(data);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.log(error);
       } finally {
         setLoading(false);
       }
     }
+
     fetchProducts();
   }, []);
 
-  if (loading) {
-    return <Loading />;
-  }
+  if (loading) return <Loading message="Yükleniyor..." />;
 
   return <ProductList products={loadedProducts} />;
 }

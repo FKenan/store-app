@@ -17,55 +17,56 @@ const authLinks = [
 
 export default function Navbar() {
   const { cart } = useCartContext();
-  console.log(cart);
-  const itemCount = cart?.cartItems
-    .reduce((total, item) => total + item.product.quantity, 0)
-
-    // color="inherit" parentin rengini alır
-    // flexGrow: 1 parentin tüm genişliğini alır.yani 1.box genişleyebildiği kadar genişler.2.box sağ tarafa yaslanır.
-    // Material UI sitesinden customization dan customize yaparak kendi tasarımımızı yapabiliriz. secondary.light, primary.main gibi renkleri kullanabiliriz.
-    .return(
-      <AppBar position="static" sx={{ backgroundColor: "secondary.light" }}>
-        <Toolbar>
-          <Box sx={{ display: "flex", flexGrow: 1, alignItems: "center" }}>
-            <IconButton color="inherit">
-              <StorefrontIcon />
-            </IconButton>
-            {links.map((link) => (
-              <Button
-                key={link.to}
-                component={NavLink}
-                to={link.to}
-                color="inherit"
-              >
-                {link.title}
-              </Button>
-            ))}
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <IconButton
+  const itemCount = cart?.cartItems.reduce(
+    (total, item) => total + item.product.quantity,
+    0
+  );
+  // color="inherit" parentin rengini alır
+  // flexGrow: 1 parentin tüm genişliğini alır.yani 1.box genişleyebildiği kadar genişler.2.box sağ tarafa yaslanır.
+  // Material UI sitesinden customization dan customize yaparak kendi tasarımımızı yapabiliriz. secondary.light, primary.main gibi renkleri kullanabiliriz.
+  return (
+    <AppBar position="static" sx={{ backgroundColor: "secondary.light" }}>
+      <Toolbar>
+        <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
+          <IconButton color="inherit">
+            <StorefrontIcon />
+          </IconButton>
+          {links.map((link) => (
+            <Button
+              key={link.to}
+              component={NavLink}
+              to={link.to}
               color="inherit"
-              component={Link}
-              to="/cart"
-              size="large"
-              edge="start"
             >
-              <Badge badgeContent={itemCount} color="secondary">
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
-            {authLinks.map((link) => (
-              <Button
-                key={link.to}
-                component={NavLink}
-                to={link.to}
-                color="inherit"
-              >
-                {link.title}
-              </Button>
-            ))}
-          </Box>
-        </Toolbar>
-      </AppBar>
-    );
+              {link.title}
+            </Button>
+          ))}
+        </Box>
+
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <IconButton
+            color="inherit"
+            component={Link}
+            to="/cart"
+            size="large"
+            edge="start"
+          >
+            <Badge badgeContent={itemCount} color="secondary">
+              <ShoppingCartIcon />
+            </Badge>
+          </IconButton>
+          {authLinks.map((link) => (
+            <Button
+              key={link.to}
+              component={NavLink}
+              to={link.to}
+              color="inherit"
+            >
+              {link.title}
+            </Button>
+          ))}
+        </Box>
+      </Toolbar>
+    </AppBar>
+  );
 }

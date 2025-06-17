@@ -8,7 +8,7 @@ export default function ProductList({ products }) {
     <Grid container spacing={2}>
       {products.map((p) => (
         <Grid key={p.id} size={{ xs: 6, md: 4, lg: 3 }}>
-          <ProductCard product={p}></ProductCard>
+          <ProductCard product={p} />
         </Grid>
       ))}
     </Grid>

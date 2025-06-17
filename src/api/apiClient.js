@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { router } from "../App";
 
 axios.defaults.baseURL = "http://localhost:5000/";
+axios.defaults.withCredentials = true;
 
 // Axios interceptors kullanarak istek ve yanıtları yönetiyoruz.
 // İstek gönderilmeden önce veya yanıt alındıktan sonra bazı işlemler yapabiliriz.
@@ -11,11 +12,11 @@ axios.defaults.baseURL = "http://localhost:5000/";
 // hata yönetimlerini tek bir yerde toplayarak, uygulamanın diğer kısımlarında hata yönetimini basitleştirmiş oluyoruz.
 axios.interceptors.response.use(
   (response) => {
-    console.log("success");
     return response; // Başarılı bir yanıt alındığında response'u döndürdük
   },
   (error) => {
     const { data, status } = error.response; // Hata durumunda gelen yanıtın data ve status bilgilerini aldık
+
     switch (status) {
       case 400:
         toast.error(data.message);
@@ -26,9 +27,11 @@ axios.interceptors.response.use(
       case 403:
         if (data.errors) {
           const errors = [];
+
           for (const key in data.errors) {
             errors.push(data.errors[key]);
           }
+
           let result = { errors: errors, message: data.message };
           throw result;
         }
@@ -37,14 +40,14 @@ axios.interceptors.response.use(
         router.navigate("/errors/not-found");
         break;
       case 500:
-        router.navigate("/errors/server-errors", {
+        router.navigate("/errors/server-error", {
           state: { error: data, status: status },
         });
         break;
       default:
         break;
     }
-    console.log("error");
+
     return Promise.reject(error.message); // Hata mesajını döndürdük
   }
 );
@@ -60,7 +63,7 @@ const methods = {
 };
 
 const products = {
-  list: () => methods.get("products"), // baseurl üstüne eklenir
+  list: () => methods.get("products"),
   details: (id) => methods.get(`products/${id}`),
 };
 

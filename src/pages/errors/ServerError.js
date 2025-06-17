@@ -7,25 +7,25 @@ export default function ServerErrorPage() {
     <Paper sx={{ p: 3 }}>
       {state?.error ? (
         <>
-          <Typography gutterBottom variant="h4">
+          <Typography variant="h4" gutterBottom>
             {state.error.message} - {state.status}
           </Typography>
           <Alert severity="error">
-            {state.error.details || "Bilinmeyen bir hata oluştu."}
+            {state.error.details || "Bilinmeyen bir hata oluştu"}
           </Alert>
         </>
       ) : (
         <>
           <Typography variant="h4">Server Error</Typography>
-          <Alert severity="error">Bilinmeyen bir hata oluştu.</Alert>
+          <Alert security="error">Bilinmeyen bir hata</Alert>
         </>
       )}
       <Button
-        sx={{ m: 2 }}
-        color="secondary"
         component={Link}
         to="/"
         variant="contained"
+        color="secondary"
+        sx={{ mt: 2 }}
       >
         Anasayfa
       </Button>

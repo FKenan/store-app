@@ -18,11 +18,12 @@ export default function ProductDetailsPage() {
 
   function handleAddItem(productId) {
     setIsAdding(true);
+
     requests.cart
       .addItem(productId)
       .then((cart) => setCart(cart))
       .catch((error) => console.log(error))
-      .finally(setIsAdding(false));
+      .finally(() => setIsAdding(false));
   }
 
   useEffect(() => {
@@ -39,9 +40,7 @@ export default function ProductDetailsPage() {
     fetchProductDetails();
   }, [id]);
 
-  if (loading) {
-    return <Loading />;
-  }
+  if (loading) return <Loading message="Yükleniyor..." />;
 
   if (!product) return <h1>Ürün bulunamadı.</h1>;
 

@@ -33,6 +33,7 @@ export default function ErrorPage() {
           </List>
         </Alert>
       )}
+
       <Button
         sx={{ mr: 2 }}
         variant="outlined"

@@ -13,14 +13,13 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Link } from "react-router";
 import { currencyTry } from "../utils/formats";
-import { useState } from "react";
 import requests from "../api/apiClient";
+import { useState } from "react";
 import { useCartContext } from "../context/CartContext";
 
 export default function ProductCard({ product }) {
   const [loading, setLoading] = useState(false);
   const { setCart } = useCartContext();
-
   function handleAddItem(productId) {
     setLoading(true);
     requests.cart
@@ -29,7 +28,6 @@ export default function ProductCard({ product }) {
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));
   }
-
   return (
     <Card>
       <CardActionArea component={Link} to={"/products/" + product.id}>
@@ -51,8 +49,10 @@ export default function ProductCard({ product }) {
           </Typography>
         </CardContent>
       </CardActionArea>
+
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
         <IconButton>
+          {/* <FavoriteIcon /> */}
           <FavoriteBorderIcon />
         </IconButton>
         <Button onClick={() => handleAddItem(product.id)}>
