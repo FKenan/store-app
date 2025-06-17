@@ -13,6 +13,9 @@ import { useEffect } from "react";
 import requests from "./api/apiClient";
 import { useCartContext } from "./context/CartContext";
 
+//npm install @reduxjs/toolkit, npm install react-redux kütüphanleri kurulur.Redux-toolkit kütüphanesi kullanacağız.
+// chrome eklentilerine redux devtools ekle => debug amaçlı yardımcı tool
+
 export const router = createBrowserRouter([
   {
     path: "/",

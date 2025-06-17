@@ -1,7 +1,6 @@
 import {
   Button,
   CircularProgress,
-  IconButton,
   Paper,
   Table,
   TableBody,
@@ -11,7 +10,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { currencyTRY } from "../utils/formats";
+import { currencyTry } from "../utils/formats";
 import { Delete } from "@mui/icons-material";
 import { useCartContext } from "../context/CartContext";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -75,7 +74,7 @@ export default function CartPage() {
                 />
               </TableCell>
               <TableCell>{item.product.title}</TableCell>
-              <TableCell>{currencyTRY.format(item.product.price)}</TableCell>
+              <TableCell>{currencyTry.format(item.product.price)}</TableCell>
               <TableCell>
                 <Button
                   onClick={() =>
@@ -111,7 +110,7 @@ export default function CartPage() {
                 </Button>
               </TableCell>
               <TableCell>
-                {currencyTRY.format(item.product.price * item.product.quantity)}
+                {currencyTry.format(item.product.price * item.product.quantity)}
               </TableCell>
               <TableCell>
                 <Button
@@ -139,7 +138,7 @@ export default function CartPage() {
               Ara Toplam
             </TableCell>
             <TableCell align="right" colSpan={5}>
-              {currencyTRY.format(subTotal)}
+              {currencyTry.format(subTotal)}
             </TableCell>
           </TableRow>
           <TableRow>
@@ -147,7 +146,7 @@ export default function CartPage() {
               Vergi
             </TableCell>
             <TableCell align="right" colSpan={5}>
-              {currencyTRY.format(tax)}
+              {currencyTry.format(tax)}
             </TableCell>
           </TableRow>
           <TableRow>
@@ -155,7 +154,7 @@ export default function CartPage() {
               Toplam
             </TableCell>
             <TableCell align="right" colSpan={5}>
-              {currencyTRY.format(total)}
+              {currencyTry.format(total)}
             </TableCell>
           </TableRow>
         </TableBody>
