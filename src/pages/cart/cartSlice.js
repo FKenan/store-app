@@ -18,6 +18,17 @@ export const addItemToCart = createAsyncThunk(
   }
 );
 
+export const deleteItemFromCart = createAsyncThunk(
+  "cart/deleteItemFromCart",
+  async ({ productId, quantity = 1, key = "" }) => {
+    try {
+      return await requests.cart.deleteItem(productId, quantity);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 // const dispatch = useDispatch() ile burdaki reducers metodlarına erişebiliriz. dispatch(setCart(value)) gibi.
 export const cartSlice = createSlice({
   name: "cart",
@@ -40,6 +51,21 @@ export const cartSlice = createSlice({
     });
 
     builder.addCase(addItemToCart.rejected, (state) => {
+      state.status = "idle";
+    });
+
+    builder.addCase(deleteItemFromCart.pending, (state, action) => {
+      state.cart = action.payload;
+      state.status =
+        "pendingDeleteItem" + action.meta.arg.productId + action.meta.arg.key;
+    });
+
+    builder.addCase(deleteItemFromCart.fulfilled, (state, action) => {
+      state.cart = action.payload;
+      state.status = "idle";
+    });
+
+    builder.addCase(deleteItemFromCart.rejected, (state) => {
       state.status = "idle";
     });
   },
