@@ -11,7 +11,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { currenyTRY } from "../utils/formats";
+import { currencyTRY } from "../utils/formats";
 import { Delete } from "@mui/icons-material";
 import { useCartContext } from "../context/CartContext";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -75,7 +75,7 @@ export default function CartPage() {
                 />
               </TableCell>
               <TableCell>{item.product.title}</TableCell>
-              <TableCell>{currenyTRY.format(item.product.price)}</TableCell>
+              <TableCell>{currencyTRY.format(item.product.price)}</TableCell>
               <TableCell>
                 <Button
                   onClick={() =>
@@ -111,7 +111,7 @@ export default function CartPage() {
                 </Button>
               </TableCell>
               <TableCell>
-                {currenyTRY.format(item.product.price * item.product.quantity)}
+                {currencyTRY.format(item.product.price * item.product.quantity)}
               </TableCell>
               <TableCell>
                 <Button
@@ -139,7 +139,7 @@ export default function CartPage() {
               Ara Toplam
             </TableCell>
             <TableCell align="right" colSpan={5}>
-              {currenyTRY.format(subTotal)}
+              {currencyTRY.format(subTotal)}
             </TableCell>
           </TableRow>
           <TableRow>
@@ -147,7 +147,7 @@ export default function CartPage() {
               Vergi
             </TableCell>
             <TableCell align="right" colSpan={5}>
-              {currenyTRY.format(tax)}
+              {currencyTRY.format(tax)}
             </TableCell>
           </TableRow>
           <TableRow>
@@ -155,7 +155,7 @@ export default function CartPage() {
               Toplam
             </TableCell>
             <TableCell align="right" colSpan={5}>
-              {currenyTRY.format(total)}
+              {currencyTRY.format(total)}
             </TableCell>
           </TableRow>
         </TableBody>
