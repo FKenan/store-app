@@ -50,7 +50,7 @@ function App() {
   useEffect(() => {
     requests.cart
       .get()
-      .then((cart) => console.log(cart))
+      .then((cart) => setCart(cart))
       .catch((error) => console.log(error));
   }, []);
 

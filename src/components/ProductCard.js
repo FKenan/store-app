@@ -15,15 +15,17 @@ import { Link } from "react-router";
 import { currencyTry } from "../utils/formats";
 import { useState } from "react";
 import requests from "../api/apiClient";
+import { useCartContext } from "../context/CartContext";
 
 export default function ProductCard({ product }) {
   const [loading, setLoading] = useState(false);
+  const { setCart } = useCartContext();
 
   function handleAddItem(productId) {
     setLoading(true);
     requests.cart
       .addItem(productId)
-      .then((cart) => console.log(cart))
+      .then((cart) => setCart(cart))
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));
   }
