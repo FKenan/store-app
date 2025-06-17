@@ -3,14 +3,16 @@ import { useParams } from "react-router";
 import ProductItem from "../components/ProductItem";
 import Loading from "../components/Loading";
 import requests from "../api/apiClient";
-import { useCartContext } from "../context/CartContext";
+import { useDispatch, useSelector } from "react-redux";
+import { setCart } from "./cart/cartSlice";
 
 export default function ProductDetailsPage() {
   const { id } = useParams(); // app.js içinde tanımlanan router altındaki  productDetailPage url ine gelen id parametresini alır.
   const [loading, setLoading] = useState(true);
   const [isAdding, setIsAdding] = useState(false);
   const [product, setProduct] = useState(null);
-  const { cart, setCart } = useCartContext();
+  const { cart } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   const cartItem = cart?.cartItems.find(
     (i) => i.product.productId == product?.id
@@ -21,7 +23,7 @@ export default function ProductDetailsPage() {
 
     requests.cart
       .addItem(productId)
-      .then((cart) => setCart(cart))
+      .then((cart) => dispatch(setCart(cart)))
       .catch((error) => console.log(error))
       .finally(() => setIsAdding(false));
   }
