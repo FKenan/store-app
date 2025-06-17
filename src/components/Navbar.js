@@ -2,8 +2,7 @@ import { AppBar, Badge, Box, Button, IconButton, Toolbar } from "@mui/material";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import { Link, NavLink } from "react-router";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useCartContext } from "../context/CartContext";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const links = [
   { title: "Home", to: "/" },

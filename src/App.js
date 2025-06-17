@@ -9,7 +9,7 @@ import ProductDetailsPage from "./pages/ProductDetails";
 import ErrorPage from "./pages/errors/Error";
 import ServerErrorPage from "./pages/errors/ServerError";
 import NotFoundPage from "./pages/errors/NotFound";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import requests from "./api/apiClient";
 import { useDispatch } from "react-redux";
 import { setCart } from "./pages/cart/cartSlice";

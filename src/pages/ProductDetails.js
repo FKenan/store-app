@@ -15,7 +15,7 @@ export default function ProductDetailsPage() {
   const dispatch = useDispatch();
 
   const cartItem = cart?.cartItems.find(
-    (i) => i.product.productId == product?.id
+    (i) => i.product.productId === product?.id
   );
 
   function handleAddItem(productId) {

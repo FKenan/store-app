@@ -71,6 +71,7 @@ export default function CartPage() {
             <TableRow key={item.id}>
               <TableCell>
                 <img
+                  alt=""
                   src={`http://localhost:5000/images/${item.product.image}`}
                   style={{ width: "100%" }}
                 />
