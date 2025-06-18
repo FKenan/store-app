@@ -13,16 +13,16 @@ export const fetchProducts = createAsyncThunk(
 );
 
 export const fetchProductById = createAsyncThunk(
-  "catalog/fetchProducts",
-  async () => {
-    return await requests.products.list();
+  "catalog/fetchProductById",
+  async (productId) => {
+    return await requests.products.details(productId);
   }
 );
 
 const productsAdapter = createEntityAdapter();
 
-const initalState = productsAdapter.getInitialState({
-  status: idle,
+const initialState = productsAdapter.getInitialState({
+  status: "idle",
   isLoaded: false,
 });
 
@@ -34,22 +34,26 @@ export const catalogSlice = createSlice({
     builder.addCase(fetchProducts.pending, (state) => {
       state.status = "pendingFetchProducts";
     });
-    builder.addCase(fetchProducts.fulfilled, (state) => {
+
+    builder.addCase(fetchProducts.fulfilled, (state, action) => {
       productsAdapter.setAll(state, action.payload);
       state.isLoaded = true;
       state.status = "idle";
     });
+
     builder.addCase(fetchProducts.rejected, (state) => {
       state.status = "idle";
     });
+
     builder.addCase(fetchProductById.pending, (state) => {
       state.status = "pendingFetchProductById";
     });
-    builder.addCase(fetchProductById.fulfilled, (state) => {
+
+    builder.addCase(fetchProductById.fulfilled, (state, action) => {
       productsAdapter.upsertOne(state, action.payload);
-      state.isLoaded = true;
       state.status = "idle";
     });
+
     builder.addCase(fetchProductById.rejected, (state) => {
       state.status = "idle";
     });

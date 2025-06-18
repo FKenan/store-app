@@ -5,7 +5,7 @@ import Loading from "../components/Loading";
 import requests from "../api/apiClient";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, setCart } from "./cart/cartSlice";
-import { fetchProductById } from "./catalog/catalogSlice";
+import { fetchProductById, selectProductById } from "./catalog/catalogSlice";
 
 export default function ProductDetailsPage() {
   const { id } = useParams(); // app.js içinde tanımlanan router altındaki  productDetailPage url ine gelen id parametresini alır.
