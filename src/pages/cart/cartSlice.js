@@ -40,6 +40,7 @@ export const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     //pending => sorgu gönderiliyor.
+    //thunk metodlarını işleme.metod olaylarına göre aksiyon alma
     builder.addCase(addItemToCart.pending, (state, action) => {
       state.cart = action.payload;
       state.status = "pendingAddItem" + action.meta.arg.productId;
