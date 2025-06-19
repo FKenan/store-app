@@ -1,4 +1,4 @@
-import { LockOutlined } from "@mui/icons-material";
+import { LockOutlined, Password } from "@mui/icons-material";
 import {
   Avatar,
   Box,
@@ -9,20 +9,18 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function LoginPage() {
-  const [values, setValues] = useState({
-    username: "",
-    password: "",
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      username: "sadff",
+      Password: "dsf",
+    },
   });
 
-  function handleSubmit(e) {
-    e.preventDefault();
-  }
-
-  function handleInputChange(e) {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
+  function handleForm(data) {
+    console.log(data);
   }
 
   return (
@@ -38,11 +36,13 @@ export default function LoginPage() {
         >
           Login
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mb: 2 }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit(handleForm)}
+          sx={{ mb: 2 }}
+        >
           <TextField
-            value={username}
-            onChange={handleInputChange}
-            name="username"
+            {...register("username")}
             label="Enter username"
             size="small"
             fullWidth
@@ -51,9 +51,7 @@ export default function LoginPage() {
             sx={{ mb: 2 }}
           />
           <TextField
-            value={password}
-            onChange={handleInputChange}
-            name="password"
+            {...register("password")}
             type="password"
             label="Enter password"
             size="small"
