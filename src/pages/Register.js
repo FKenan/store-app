@@ -1,3 +1,14 @@
+import { LockOutlined } from "@mui/icons-material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
+
 export default function RegisterPage() {
   return (
     <Container maxWidth="xs">
