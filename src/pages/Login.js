@@ -8,14 +8,17 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function LoginPage() {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
     defaultValues: {
-      username: "sadff",
-      Password: "dsf",
+      username: "",
+      password: "",
     },
   });
 
@@ -37,28 +40,44 @@ export default function LoginPage() {
           Login
         </Typography>
         <Box
+          noValidate
           component="form"
           onSubmit={handleSubmit(handleForm)}
           sx={{ mb: 2 }}
         >
           <TextField
-            {...register("username")}
+            {...register("username", {
+              required: "username zorunlu alan",
+              minLength: {
+                value: 3,
+                message: "username min 3 karakter olmalıdır.",
+              },
+            })}
             label="Enter username"
             size="small"
             fullWidth
             required
             autoFocus
+            error={!!errors.username}
             sx={{ mb: 2 }}
+            helperText={errors.username?.message}
           />
           <TextField
-            {...register("password")}
+            {...register("password", {
+              required: "password zorunlu alandır",
+              minLength: {
+                value: 3,
+                message: "password min 3 karakter olmalıdır.",
+              },
+            })}
             type="password"
             label="Enter password"
             size="small"
             fullWidth
             required
-            autoFocus
+            error={!!errors.password}
             sx={{ mb: 2 }}
+            helperText={errors.password?.message}
           />
           <Button
             type="submit"
@@ -66,6 +85,7 @@ export default function LoginPage() {
             fullWidth
             sx={{ mt: 1 }}
             color="secondary"
+            disabled={!isValid}
           >
             Submit
           </Button>
