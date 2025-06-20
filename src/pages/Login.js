@@ -9,8 +9,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
+import requests from "../api/apiClient";
+import { useNavigate } from "react-router";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -23,7 +27,14 @@ export default function LoginPage() {
   });
 
   function handleForm(data) {
-    console.log(data);
+    requests.account
+      .login(data)
+      .then((result) => {
+        console.log(result);
+        localStorage.setItem("user", JSON.stringify(result));
+        navigate("/"); // giriş yapıldı home sayfasına yönlendir.
+      })
+      .catch((error) => console.log(error));
   }
 
   return (
