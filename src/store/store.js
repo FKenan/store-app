@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { counterSlice } from "../pages/counters/counterSlice";
+import { counterSlice } from "../pages/counter/counterSlice";
 import { cartSlice } from "../pages/cart/cartSlice";
 import { catalogSlice } from "../pages/catalog/catalogSlice";
 import { accountSlice } from "../pages/account/accountSlice";

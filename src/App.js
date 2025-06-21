@@ -1,18 +1,19 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import MainLayout from "./layouts/Main";
 import HomePage from "./pages/Home";
-import ProductsPage from "./pages/Products";
 import CartPage from "./pages/cart/Cart";
-import LoginPage from "./pages/account/Login";
+import ProductsPage from "./pages/Products";
 import RegisterPage from "./pages/account/Register";
-import ProductDetailsPage from "./pages/ProductDetails";
 import ErrorPage from "./pages/errors/Error";
 import ServerErrorPage from "./pages/errors/ServerError";
 import NotFoundPage from "./pages/errors/NotFound";
-import { useEffect } from "react";
+import LoginPage from "./pages/account/Login";
+import ProductDetailsPage from "./pages/ProductDetails";
+import { getUser, logout, setUser } from "./pages/account/accountSlice";
+import { useEffect, useState } from "react";
+import { getCart, setCart } from "./pages/cart/cartSlice";
 import requests from "./api/apiClient";
 import { useDispatch } from "react-redux";
-import { setCart } from "./pages/cart/cartSlice";
 
 //npm install @reduxjs/toolkit, npm install react-redux kütüphanleri kurulur.Redux-toolkit kütüphanesi kullanacağız.
 // chrome eklentilerine redux devtools ekle => debug amaçlı yardımcı tool
@@ -49,12 +50,15 @@ export const router = createBrowserRouter([
 
 function App() {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+
+  const initApp = async () => {
+    await dispatch(getUser());
+    await dispatch(getCart());
+  };
 
   useEffect(() => {
-    requests.cart
-      .get()
-      .then((cart) => dispatch(setCart(cart)))
-      .catch((error) => console.log(error));
+    initApp().then(() => setLoading(false));
   }, []);
 
   return <RouterProvider router={router} />;
