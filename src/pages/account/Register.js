@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import requests from "../api/apiClient";
+import requests from "../../api/apiClient";
 import { useNavigate } from "react-router";
 
 export default function RegisterPage() {

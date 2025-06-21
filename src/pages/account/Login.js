@@ -9,11 +9,14 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import requests from "../api/apiClient";
+import requests from "../../api/apiClient";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { setUser } from "./accountSlice";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -29,9 +32,10 @@ export default function LoginPage() {
   function handleForm(data) {
     requests.account
       .login(data)
-      .then((result) => {
-        console.log(result);
-        localStorage.setItem("user", JSON.stringify(result));
+      .then((user) => {
+        console.log(user);
+        localStorage.setItem("user", JSON.stringify(user));
+        dispatch(setUser(user));
         navigate("/"); // giriş yapıldı home sayfasına yönlendir.
       })
       .catch((error) => console.log(error));
