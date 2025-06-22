@@ -12,8 +12,9 @@ import ProductDetailsPage from "./pages/ProductDetails";
 import { getUser, logout, setUser } from "./pages/account/accountSlice";
 import { useEffect, useState } from "react";
 import { getCart, setCart } from "./pages/cart/cartSlice";
-import requests from "./api/apiClient";
 import { useDispatch } from "react-redux";
+import AuthGuard from "./auth/AuthGuard";
+import CheckoutPage from "./pages/checkout/Checkout";
 
 //npm install @reduxjs/toolkit, npm install react-redux kütüphanleri kurulur.Redux-toolkit kütüphanesi kullanacağız.
 // chrome eklentilerine redux devtools ekle => debug amaçlı yardımcı tool
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       { path: "cart", element: <CartPage /> },
       { path: "login", element: <LoginPage /> },
       { path: "register", element: <RegisterPage /> },
+      {
+        element: <AuthGuard />,
+        children: [{ path: "checkout", element: <CheckoutPage /> }],
+      },
       {
         path: "errors",
         children: [
