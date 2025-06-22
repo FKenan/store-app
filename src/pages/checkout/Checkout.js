@@ -40,6 +40,7 @@ export default function CheckoutPage() {
   function handleNext() {
     setActiveStep(activeStep + 1);
   }
+
   return (
     <Paper>
       <Grid container spacing={3}>
