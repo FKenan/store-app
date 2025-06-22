@@ -29,7 +29,6 @@ export default function AddressForm() {
           label="Enter lastname"
           size="small"
           fullWidth
-          autoFocus
           sx={{ mb: 2 }}
           error={!!errors.lastname}
         />
@@ -42,7 +41,6 @@ export default function AddressForm() {
           label="Enter phone"
           size="small"
           fullWidth
-          autoFocus
           sx={{ mb: 2 }}
           error={!!errors.phone}
         />
@@ -55,7 +53,6 @@ export default function AddressForm() {
           label="Enter city"
           size="small"
           fullWidth
-          autoFocus
           sx={{ mb: 2 }}
           error={!!errors.city}
         />
@@ -68,7 +65,6 @@ export default function AddressForm() {
           label="Enter addressline"
           size="small"
           fullWidth
-          autoFocus
           sx={{ mb: 2 }}
           error={!!errors.addressline}
         />
