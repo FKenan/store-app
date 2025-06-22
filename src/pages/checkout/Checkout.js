@@ -14,6 +14,7 @@ import Review from "./Review";
 import Info from "./Info";
 import { useState } from "react";
 import { ChevronLeftRounded, ChevronRightRounded } from "@mui/icons-material";
+import { FormProvider, useForm } from "react-hook-form";
 
 // Stepper => işlem adımlarını gösterme 1.adım-->2.adım-->3.adım gibi
 
@@ -32,70 +33,78 @@ function getStepContent(step) {
 
 export default function CheckoutPage() {
   const [activeStep, setActiveStep] = useState(0);
+  const methods = useForm();
 
   function handlePrevious() {
     setActiveStep(activeStep - 1);
   }
 
   function handleNext() {
+    if (activeStep === 2) {
+      // sipariş kayıt
+    }
     setActiveStep(activeStep + 1);
   }
 
   return (
-    <Paper>
-      <Grid container spacing={3}>
-        <Grid
-          size={4}
-          sx={{ p: 3, borderRight: "1px solid", borderColor: "divider" }}
-        >
-          <Info />
-        </Grid>
-        <Grid size={8} sx={{ p: 3 }}>
-          <Stepper activeStep={activeStep} sx={{ height: 40, mb: 4 }}>
-            {steps.map((label) => (
-              <Step key={label} sx={{ color: "secondary" }}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          {activeStep === steps.length ? (
-            <Typography variant="h5">Siparişinizi aldık.</Typography>
-          ) : (
-            <>
-              {getStepContent(activeStep)}
+    <FormProvider {...methods}>
+      <Paper>
+        <Grid container spacing={3}>
+          <Grid
+            size={4}
+            sx={{ p: 3, borderRight: "1px solid", borderColor: "divider" }}
+          >
+            <Info />
+          </Grid>
+          <Grid size={8} sx={{ p: 3 }}>
+            <Stepper activeStep={activeStep} sx={{ height: 40, mb: 4 }}>
+              {steps.map((label) => (
+                <Step key={label} sx={{ color: "secondary" }}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+            {activeStep === steps.length ? (
+              <Typography variant="h5">Siparişinizi aldık.</Typography>
+            ) : (
+              <>
+                <form onSubmit={methods.handleSubmit(handleNext)}>
+                  {getStepContent(activeStep)}
 
-              <Box
-                sx={[
-                  { display: "flex" },
-                  activeStep !== 0
-                    ? { justifyContent: "space-between" }
-                    : { justifyContent: "flex-end" },
-                ]}
-              >
-                {activeStep !== 0 && (
-                  <Button
-                    onClick={handlePrevious}
-                    startIcon={<ChevronLeftRounded />}
-                    variant="contained"
-                    color="secondary"
+                  <Box
+                    sx={[
+                      { display: "flex" },
+                      activeStep !== 0
+                        ? { justifyContent: "space-between" }
+                        : { justifyContent: "flex-end" },
+                    ]}
                   >
-                    Geri
-                  </Button>
-                )}
+                    {activeStep !== 0 && (
+                      <Button
+                        onClick={handlePrevious}
+                        startIcon={<ChevronLeftRounded />}
+                        variant="contained"
+                        color="secondary"
+                      >
+                        Geri
+                      </Button>
+                    )}
 
-                <Button
-                  onClick={handleNext}
-                  startIcon={<ChevronRightRounded />}
-                  variant="contained"
-                  color="secondary"
-                >
-                  İleri
-                </Button>
-              </Box>
-            </>
-          )}
+                    <Button
+                      type="submit"
+                      startIcon={<ChevronRightRounded />}
+                      variant="contained"
+                      color="secondary"
+                    >
+                      {activeStep === 2 ? "Siparişi Tamamla" : "İleri"}
+                    </Button>
+                  </Box>
+                </form>
+              </>
+            )}
+          </Grid>
         </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+    </FormProvider>
   );
 }
